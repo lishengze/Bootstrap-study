@@ -1,0 +1,22 @@
+{
+  "name": "monitor-login",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "description": "监控登录模块",
+  "keywords": [
+  ],
+  "repository": "",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.1.1",
+    "underscore-plus": "^1.0.6",
+    "space-pen": "^5.1.2",
+    "bootstrap": "^3.3.4"
+  },
+  "devDependencies": {
+    "coffeelint": "^1.9.7"
+  }
+}

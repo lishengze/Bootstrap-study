@@ -1,0 +1,8 @@
+'menu': [
+  {
+    'label': '文件'
+    'submenu': [
+      {'label': '登录', 'command': 'monitor-login:show'}
+    ]
+  }
+]
