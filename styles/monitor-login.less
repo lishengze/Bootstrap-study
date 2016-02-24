@@ -1,13 +1,5 @@
 @import "ui-variables";
 
-// Core variables and mixins
-@import "../node_modules/bootstrap/less/variables.less";
-@import "../node_modules/bootstrap/less/mixins.less";
-
-
-//bootstrap Components
-@import "../node_modules/bootstrap/less/modals.less";
-
 .loginView {
   .modal {
     text-align: center;
@@ -31,5 +23,18 @@
     & > div {
       margin: 10px;
     }
+  }
+
+  .modal-header, .modal-header{
+    padding: 0px;
+    margin: 5px;
+  }
+  .modal-body {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  input[type='checkbox'] {
+    margin-top: 2px;
   }
 }
