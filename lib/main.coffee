@@ -3,7 +3,6 @@ LoginView = require './login-view'
 
 module.exports =
   activate: (state) ->
-    require 'bootstrap'
     @loginView = new LoginView()
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add('atom-workspace', {

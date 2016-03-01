@@ -1,11 +1,11 @@
 {
-  "name": "monitor-login",
+  "name": "monitor2-login",
   "main": "./lib/main",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "监控登录模块",
   "keywords": [
   ],
-  "repository": "",
+  "repository": "http://172.1.128.150/monitor2_client/monitor2_login",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
