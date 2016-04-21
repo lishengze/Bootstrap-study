@@ -1,6 +1,7 @@
 @import "ui-variables";
 
 .loginView {
+  -webkit-user-select: none; //内容不可选
   .modal {
     text-align: center;
   }
@@ -19,13 +20,13 @@
   }
 
   .modal-content {
-    background-color: @overlay-background-color;
+    // background-color: @overlay-background-color;
     & > div {
       margin: 10px;
     }
   }
 
-  .modal-header, .modal-header{
+  .modal-header, .modal-header .monal-footer{
     padding: 0px;
     margin: 5px;
   }
