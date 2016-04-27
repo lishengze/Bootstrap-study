@@ -50,7 +50,6 @@ class LoginView extends View
                   @button outlet:'loginSubmit',type: 'button', tabindex: '7', class: 'btn btn-primary btn-lg', '登录'
                   @button type: 'button', tabindex: '8', 'data-dismiss':'modal', class: 'btn btn-primary btn-lg', '退出'
 
-
   initialize: ->
     $('body').append(@login.parent())
     $(@login[0]).modal('backdrop': 'static', keyboard: false, show: true) #打开客户端即显示登录界面
@@ -85,7 +84,6 @@ class LoginView extends View
       console.log data
 
   console.log 'This is login-view!'
-
 
   userapi.emitter.on "RspQrySysUserLoginTopic CallbackData", (data) ->
       console.log "login-view: RspQrySysUserLoginTopic CallbackData"
