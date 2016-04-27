@@ -12,7 +12,7 @@ module.exports =
 class LoginView extends View
   @content: ->
     @div class: 'loginView', =>
-      @div class: 'modal fade', role: 'dialog', id : 'loginView',outlet: "login", =>
+      @div class: 'modal fade', role: 'dialog',outlet: "login", =>
         @div class: 'modal-dialog modal-sm', =>
           @div class: 'modal-content', =>
             @div class: 'modal-header', =>
@@ -54,7 +54,7 @@ class LoginView extends View
 
   initialize: ->
     $('body').append(@login.parent())
-    $(@login[0]).modal('backdrop': 'static', keyboard: false, show: true) #打开客户端即显示登录界面
+    $(@login).modal('backdrop': 'static', keyboard: false, show: true) #打开客户端即显示登录界面
     @loginSubmit.click(=>
         userID   = @inputText.val();
         password = @inputPassword.val();
@@ -65,20 +65,15 @@ class LoginView extends View
         userinfo.VersionID = "2.0.0.0";
         userApi.childProcess.send {event: EVENTS.NewUserCome, reqField: userinfo }
     )
-
-  # 在哪处理回调数据，在哪定义;
-  userApi.emitter.on "Test Front!", (data) =>
-      console.log 'login-view: Test Front!'
-      console.log @loginSubmit
-  userApi.emitter.on "RspQrySysUserLoginTopic CallbackData", (data) ->
-      console.log "login-view: RspQrySysUserLoginTopic CallbackData"
-      console.log $('#loginBtn')
-      console.log @login
-      userApi.emitter.emit "Login Succeed", data
-      console.log 'Login Succeed'
-      $('#loginView').modal 'hide' # 登录成功则modal模块消失
-
+  attached: ->
+    # 在哪处理回调数据，在哪定义;
+    userApi.emitter.on "Test Front!", (data) =>
+        console.log 'login-view: Test Front!'
+    userApi.emitter.on EVENTS.RspQrySysUserLoginTopic , (data) =>
+        console.log "login-view: RspQrySysUserLoginTopic CallbackData"
+        userApi.emitter.emit "Login Succeed", data
+        $(@login).modal 'hide' # 登录成功则modal模块消失
 
   show: ->
-    $(@login[0]).modal 'backdrop': 'static', keyboard: false, show: true # backdrop 指定背景， true 表示 使除modal外的背景变暗且点击背景会屏蔽modal static 变暗且不屏蔽modal false表示不会使背景变暗。
+    $(@login).modal 'backdrop': 'static', keyboard: false, show: true # backdrop 指定背景， true 表示 使除modal外的背景变暗且点击背景会屏蔽modal static 变暗且不屏蔽modal false表示不会使背景变暗。
                                                                          # keyboard 按下esc时是否退出 modal true表示退出
