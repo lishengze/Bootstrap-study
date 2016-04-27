@@ -4,9 +4,9 @@ SysUserApiStruct = require './SysUserApiStruct.js'
 events           = require './events.js'
 Events           = new events.EVENTS()
 clientMain       = require './client-main.js'
-window.userapi   = clientMain;
+window.userApi   = clientMain;
 window.EVENTS    = Events;
-window.userApistruct =SysUserApiStruct;
+window.userApiStruct =SysUserApiStruct;
 
 module.exports =
 class LoginView extends View
@@ -63,7 +63,7 @@ class LoginView extends View
         userID   = @inputText.val();
         password = @inputPassword.val();
 
-        userinfo           = new SysUserApiStruct.CShfeFtdcReqQrySysUserLoginField();
+        userinfo           = new userApiStruct.CShfeFtdcReqQrySysUserLoginField();
         userinfo.UserID    = userID;
         userinfo.Password  = password;
         userinfo.VersionID = "2.0.0.0";
@@ -81,13 +81,13 @@ class LoginView extends View
     )
 
   # 在哪处理回调数据，在哪定义;
-  userapi.emitter.on "Test Front!", (data)->
+  userApi.emitter.on "Test Front!", (data)->
       console.log 'login-view: Test Front!'
       console.log data
 
   console.log 'This is login-view!'
 
-  userapi.emitter.on "RspQrySysUserLoginTopic CallbackData", (data) ->
+  userApi.emitter.on "RspQrySysUserLoginTopic CallbackData", (data) ->
       console.log "login-view: RspQrySysUserLoginTopic CallbackData"
       console.log data
 
