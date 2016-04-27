@@ -1,0 +1,12 @@
+Hello Pid: 10628
+
+Environment Params: 
+0: C:\Users\li.xiankui\AppData\Local\monitor2\app-0.1.2\monitor2.exe
+1: C:\Users\li.xiankui\.monitor\packages\monitor2_login\lib\client-child-complete.js
+2: Hello client-child!
+reqData.event: NewUserCome
+Client: new user admin ready!
+Client: admin  connect completed!
+
++++++++++  Communication FrontConnected! ++++++++
+

@@ -13,7 +13,8 @@
   "dependencies": {
     "atom-space-pen-views": "^2.1.1",
     "underscore-plus": "^1.0.6",
-    "space-pen": "^5.1.2"
+    "space-pen": "^5.1.2",
+    "socket.io-client": "^1.4.5"
   },
   "devDependencies": {
     "coffeelint": "^1.9.7"

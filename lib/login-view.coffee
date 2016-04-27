@@ -2,9 +2,11 @@
 {TextEditorView} = require 'atom-space-pen-views'
 SysUserApiStruct = require './SysUserApiStruct.js'
 events           = require './events.js'
-EVENTS           = new events.EVENTS()
+Events           = new events.EVENTS()
 clientMain       = require './client-main.js'
 window.userapi   = clientMain;
+window.EVENTS    = Events;
+window.userApistruct =SysUserApiStruct;
 
 module.exports =
 class LoginView extends View
