@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../src/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../src/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../src/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <form role="form">
+    <div class="form-group">
+      <label for="name"> 名称 </label>
+      <input type="text" id="name" class="form-control"placeholder="请输入名称">
+    </div>
+    <div class="form-group">
+      <label for="withFormcontrol"> with form-control </label>
+      <input type="file" class="form-control"id="withFormcontrol" value="选择文件">
+      <label for="withoutFormcontrol"> without form-control </label>
+      <input type="file" id="withoutFormcontrol" value="without form-control">
+    </div>
+    <div class="checkbox">
+      <label>
+      <input type="checkbox">请打勾
+      </label>
+      <!-- <button type="submit" class="form-control" >提交 </button> -->
+    </div>
+    <button type="submit" >提交 </button>
+  </form>
+
+  <form class="form-inline"role="form">
+    <div class="form-group">
+      <label for="name"> 名称 </label>
+      <input type="text" id="name" class="form-control"placeholder="请输入名称">
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="select-file"> 文件输入 </label>
+      <input type="file" id="select-file" value="选择文件">
+    </div>
+    <div class="checkbox">
+      <label>
+      <input type="checkbox">请打勾
+      </label>
+      <!-- <button type="submit" class="form-control" >提交 </button> -->
+    </div>
+    <button type="submit" >提交 </button>
+  </form>
+
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="firstName" class="col-sm-2 control-label"> 姓 </label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control"id="firstName" placeholder="输入姓">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName" class="control-label col-sm-2"> 名 </label>
+      <div class="col-sm-6">
+      <input type="text" id="lastName" class="form-control" placeholder="输入名">
+      </div>
+    </div>
+    <div class="form-group">
+       <div class="col-sm-offset-2 col-sm-10">
+          <!-- <div class="checkbox"> -->
+             <!-- <label for="check"> -->
+                <input type="checkbox" id="check"> 请记住我
+                <!-- <label for="check"> 请记住我 </label> -->
+             <!-- </label> -->
+          <!-- </div> -->
+       </div>
+    </div>
+    <div class="form-group">
+       <div class="col-sm-offset-2 col-sm-10">
+              <input type="button" class="btn btn-default" value="登录">
+              <!-- <button type="submit" class="btn btn-default">登录 </button> -->
+       </div>
+    </div>
+  </form>
+
+  <form class="form-horizontal" role="form">
+   <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">名字</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="firstname"
+            placeholder="请输入名字">
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="lastname" class="col-sm-2 control-label">姓</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="lastname"
+            placeholder="请输入姓">
+      </div>
+   </div>
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <div class="checkbox">
+            <label>
+               <input type="checkbox"> 请记住我
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <button type="submit" class="btn btn-default">登录</button>
+      </div>
+   </div>
+  </form>
+
+  <form role="form">
+    <div class="form-group has-error">
+      <label for="textArea"> 文本框 </label>
+      <textarea rows="3" class="form-control"id="textArea"> </textarea>
+    </div>
+    <div>
+      <label>
+        <input type="radio" name="radios" value="opt1" checked>选项1
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="radio" name="radios" value="opt2" >选项2
+      </label>
+    </div>
+
+      <label >
+        <input class="checkbox-inline" type="radio" name="radiosb" value="opt3" checked>选项3
+      </label>
+
+
+      <label >
+        <input class="checkbox-inline" type="radio" name="radiosb" value="opt4" >选项4
+      </label>
+
+      <div class="form-group">
+        <label class="control-label" for="selectitemsingel">单选列表</label><br>
+        <!-- <div class="col-sm-4"> -->
+        <select id="selectitemsingel" class="input-lg">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <!-- </div> -->
+      </div>
+
+     <div class="form-group">
+        <label class="control-label"for="selectitemmultiple">多选列表</label>
+        <!-- <div class="col-sm-4"> -->
+          <select multiple id="selectitemmultiple" class="form-control input-lg">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        <!-- </div> -->
+      </div>
+
+  </form>
+
+</body>
+</html>
