@@ -93,7 +93,7 @@ class LoginView extends View
         userinfo.VersionID = "2.0.0.0"
 
         if $('.checkbox')
-          window.userInfo = userinfo          
+          window.userInfo = userinfo
         userApi.emitter.emit EVENTS.NewUserCome, userinfo
 
   logoutFunc: ->
