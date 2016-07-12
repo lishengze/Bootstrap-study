@@ -8,6 +8,7 @@ module.exports =
     # @subscriptions.add atom.commands.add('atom-workspace', {
     #   'monitor-login:show': => @loginView.show()
     # })
+    console.log "activate"
 
   deactivate: ->
     # @sidebarPanel.destroy()
