@@ -1,4 +1,4 @@
-Hello Pid: 9228
+Hello Pid: 12112
 
 Environment Params: 
 0: C:\Users\li.shengze\AppData\Local\monitor2\app-0.1.3\monitor2.exe
@@ -7,6 +7,6 @@ Environment Params:
 reqData.event: NewUserCome
 Client: new user admin ready!
 Client: admin  connect completed!
-
-+++++++++  Communication FrontConnected! ++++++++
-
+reqData.event: ReqQryNetMonitorAttrScopeTopic
+reqData.event: ReqQryNetMonitorAttrScopeTopic
+reqData.event: ReqQryNetMonitorAttrScopeTopic

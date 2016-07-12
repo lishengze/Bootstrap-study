@@ -3,16 +3,20 @@
 SysUserApiStruct = require './SysUserApiStruct.js'
 events           = require './events.js'
 EVENTS           = new events.EVENTS()
-reconnectLimits  = 1;
+reconnectLimits  = 10;
 isFirstConnect   = true;
 window.userApiStruct = SysUserApiStruct;
 window.EVENTS    = EVENTS;
+RequestIDFunc    = require './window-requestid.js'
+req              = require './window-req.js'
+
+loginViewReqQrySysUserLoginTopicRequestID = 0
 
 module.exports =
 class LoginView extends View
   @content: ->
     @div class: 'loginView', =>
-      @div class: 'modal fade', outlet: "login", =>
+      @div class: 'modal fade', outlet: "login", id:"loginModal", =>
         @div class: 'modal-dialog modal-sm', =>
           @div class: 'modal-content', =>
             @div class: 'modal-header', =>
@@ -58,43 +62,91 @@ class LoginView extends View
   initialize: ->
     $('body').append(@login.parent())
     $(@login[0]).modal('backdrop': 'static', keyboard: false, show: true)         #打开客户端即显示登录界面
-
-    #@loginBtn.click(@loginFunc)
-    # @loginBtn.click(=>
-    #     console.log '@loginBtn!'
-    #     userID   = @inputText.val()
-    #     password = @inputPassword.val()
-    #     userinfo           = new userApiStruct.CShfeFtdcReqQrySysUserLoginField()
-    #     userinfo.UserID    = userID
-    #     userinfo.Password  = password
-    #     userinfo.VersionID = "2.0.0.0"
-    #
-    #     if $('.checkbox')
-    #       console.log 'checkbox is true!'
-    #       window.userInfo = userinfo
-    #
-    #     console.log 'login-view: data from dialog'
-    #     console.log userinfo
-    #
-    #     # userApi.childProcess.send {event: EVENTS.StartConnectServer, reqField: {} }
-    #     #
-    #     # userApi.emitter.on EVENTS.ConnectServerComplete, (data)->
-    #     #       console.log "ConnectServerComplete"
-    #     #       userApi.childProcess.send {event: EVENTS.NewUserCome, reqField: userinfo }
-    #     userApi.childProcess.send {event: EVENTS.NewUserCome, reqField: userinfo }
-    # )
+    console.log "loginView pid: " + process.pid
+    console.log 'window.id: ' + window.id
+    console.log 'window.ReqQryNetMonitorAttrScopeTopicRequestID: ' + window.ReqQryNetMonitorAttrScopeTopicRequestID
 
   loginFunc: ->
         userID   = @inputText.val()
         password = @inputPassword.val()
-        userinfo           = new userApiStruct.CShfeFtdcReqQrySysUserLoginField()
-        userinfo.UserID    = userID
-        userinfo.Password  = password
-        userinfo.VersionID = "2.0.0.0"
 
-        if $('.checkbox')
-          window.userInfo = userinfo          
-        userApi.emitter.emit EVENTS.NewUserCome, userinfo
+        userinfo1           = new userApiStruct.CShfeFtdcReqQrySysUserLoginField()
+        userinfo1.UserID    = userID
+        userinfo1.Password  = password
+        userinfo1.VersionID = "2.0.0.0"
+        loginViewReqQrySysUserLoginTopicRequestID = 1  #++window.ReqQrySysUserLoginTopicRequestID
+        loginReqField1           = {}
+        loginReqField1.reqObject = userinfo1
+        loginReqField1.RequestId = loginViewReqQrySysUserLoginTopicRequestID
+        loginReqField1.message   = EVENTS.RspQrySysUserLoginTopic + loginViewReqQrySysUserLoginTopicRequestID
+
+        userinfo2           = new userApiStruct.CShfeFtdcReqQrySysUserLoginField()
+        userinfo2.VersionID = "2.0.0.0"
+        userinfo2.UserID    = "NewUserIDJ_1"
+        userinfo2.Password  = "1234567"
+        loginViewReqQrySysUserLoginTopicRequestID = 2  #++window.ReqQrySysUserLoginTopicRequestID
+        loginReqField2           = {}
+        loginReqField2.reqObject = userinfo2
+        loginReqField2.RequestId = loginViewReqQrySysUserLoginTopicRequestID
+        loginReqField2.message   = EVENTS.RspQrySysUserLoginTopic + loginViewReqQrySysUserLoginTopicRequestID
+
+        netMonitorAttrerScope               = new userApiStruct.CShfeFtdcReqQryNetMonitorAttrScopeField()
+        netMonitorAttrerScope.OperationType = 0;
+        netMonitorAttrerScope.ID            = 0;
+        netMonitorAttrerScope.CName         = " ";
+        netMonitorAttrerScope.EName         = " ";
+        netMonitorAttrerScope.Comments      = " ";
+        netMonitorAttrerScopeField1            = {}
+        netMonitorAttrerScopeField1.reqObject  = netMonitorAttrerScope
+        netMonitorAttrerScopeField1.RequestId  = ++window.ReqQryNetMonitorAttrScopeTopicRequestID;
+        netMonitorAttrerScopeField1.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField1.RequestId
+
+        netMonitorAttrerScopeField2            = {}
+        netMonitorAttrerScopeField2.reqObject  = netMonitorAttrerScope
+        netMonitorAttrerScopeField2.RequestId  = ++window.ReqQryNetMonitorAttrScopeTopicRequestID;
+        netMonitorAttrerScopeField2.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField2.RequestId
+
+        netMonitorAttrerScopeField3            = {}
+        netMonitorAttrerScopeField3.reqObject  = netMonitorAttrerScope
+        netMonitorAttrerScopeField3.RequestId  = ++window.ReqQryNetMonitorAttrScopeTopicRequestID;
+        netMonitorAttrerScopeField3.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField3.RequestId
+
+        userApi.emitter.emit EVENTS.NewUserCome, loginReqField1
+        userApi.emitter.on loginReqField1.message, (data) =>
+            console.log loginReqField1.message
+            console.log data
+
+            # userApi.emitter.emit EVENTS.NewUserCome, loginReqField2
+            # userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField2
+
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField1
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField2
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
+
+            if data.hasOwnProperty 'pRspQrySysUserLogin'
+               $(@login[0]).modal('hide') # 登录成功隐藏对话框
+               if $('.checkbox')
+                 window.userInfo = userinfo1
+            else
+               @connectinfo.attr 'class', 'text-danger'
+               @connectinfo.text '登录错误， 错误消息为: ' + data.pRspInfo.ErrorMsg
+
+        userApi.emitter.on loginReqField2.message, (data) =>
+            console.log loginReqField2.message
+            console.log data
+
+        userApi.emitter.on netMonitorAttrerScopeField1.rspMessage, (data) =>
+          console.log netMonitorAttrerScopeField1.rspMessage
+          console.log data
+
+        userApi.emitter.on netMonitorAttrerScopeField2.rspMessage, (data) =>
+          console.log netMonitorAttrerScopeField2.rspMessage
+          console.log data
+
+        userApi.emitter.on netMonitorAttrerScopeField3.rspMessage, (data) =>
+          console.log netMonitorAttrerScopeField3.rspMessage
+          console.log data
+
 
   logoutFunc: ->
       atom.close()
@@ -149,15 +201,10 @@ class LoginView extends View
           console.log EVENTS.RootSocketReconnectFailed
           console.log data
 
+
+
       userApi.emitter.on EVENTS.RspQrySysUserLoginTopic, (data) ->
-
-          console.log "login-view: RspQrySysUserLoginTopic CallbackData"
+          console.log "login-view2: RspQrySysUserLoginTopic CallbackData"
           console.log data
-          if data.hasOwnProperty 'pRspQrySysUserLogin'
-            $(_this.login[0]).modal('hide') # 登录成功隐藏对话框
-          else
-            _this.connectinfo.attr 'class', 'text-danger'
-            _this.connectinfo.text '登录错误， 错误消息为: ' + data.pRspInfo.ErrorMsg
-
   show: ->
     $(@login[0]).modal 'backdrop': 'static', keyboard: false, show: true
