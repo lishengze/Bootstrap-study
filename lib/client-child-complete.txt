@@ -1,0 +1,12 @@
+Hello Pid: 12112
+
+Environment Params: 
+0: C:\Users\li.shengze\AppData\Local\monitor2\app-0.1.3\monitor2.exe
+1: C:\Users\li.shengze\.monitor\packages\monitor2_login\lib\client-child-complete.js
+2: Hello client-child!
+reqData.event: NewUserCome
+Client: new user admin ready!
+Client: admin  connect completed!
+reqData.event: ReqQryNetMonitorAttrScopeTopic
+reqData.event: ReqQryNetMonitorAttrScopeTopic
+reqData.event: ReqQryNetMonitorAttrScopeTopic
