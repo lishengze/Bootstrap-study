@@ -35,9 +35,7 @@ class ClientView extends ScrollView
       console.log "RspQrySysUserLoginTopic CallbackData"
       console.log data
 
-
   @attached: ->
-
 
   @detached: ->
 

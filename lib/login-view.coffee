@@ -8,7 +8,6 @@ isFirstConnect   = true;
 window.userApiStruct = SysUserApiStruct;
 window.EVENTS    = EVENTS;
 RequestIDFunc    = require './window-requestid.js'
-req              = require './window-req.js'
 
 loginViewReqQrySysUserLoginTopicRequestID = 0
 
@@ -16,7 +15,7 @@ module.exports =
 class LoginView extends View
   @content: ->
     @div class: 'loginView', =>
-      @div class: 'modal fade', outlet: "login", id:"loginModal", =>
+      @div class: 'modal fade', outlet: "login", onkeydown:'testKeyDown',id:"loginModal", =>
         @div class: 'modal-dialog modal-sm', =>
           @div class: 'modal-content', =>
             @div class: 'modal-header', =>
@@ -63,8 +62,10 @@ class LoginView extends View
     $('body').append(@login.parent())
     $(@login[0]).modal('backdrop': 'static', keyboard: false, show: true)         #打开客户端即显示登录界面
     console.log "loginView pid: " + process.pid
-    console.log 'window.id: ' + window.id
-    console.log 'window.ReqQryNetMonitorAttrScopeTopicRequestID: ' + window.ReqQryNetMonitorAttrScopeTopicRequestID
+    # console.log 'window.ReqQryNetMonitorAttrScopeTopicRequestID: ' + window.ReqQryNetMonitorAttrScopeTopicRequestID
+
+  testKeyDown: ->
+    console.log 'Hello keydown'
 
   loginFunc: ->
         userID   = @inputText.val()
@@ -124,7 +125,7 @@ class LoginView extends View
             userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
 
             if data.hasOwnProperty 'pRspQrySysUserLogin'
-              
+
               userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
 
               $(@login[0]).modal('hide') # 登录成功隐藏对话框
