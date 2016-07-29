@@ -1,4 +1,4 @@
-Hello Pid: 10592
+Hello Pid: 9696
 
 Environment Params: 
 0: C:\Users\li.shengze\AppData\Local\monitor2\app-0.1.3\monitor2.exe
