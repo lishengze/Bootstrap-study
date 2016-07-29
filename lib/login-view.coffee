@@ -124,7 +124,9 @@ class LoginView extends View
             userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
 
             if data.hasOwnProperty 'pRspQrySysUserLogin'
-              userApi.emitter.emit 'Login Succeed',{}
+              
+              userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
+
               $(@login[0]).modal('hide') # 登录成功隐藏对话框
               if $('.checkbox')
                 window.userInfo = userinfo1
