@@ -111,20 +111,22 @@ class LoginView extends View
         netMonitorAttrerScopeField3.RequestId  = ++window.ReqQryNetMonitorAttrScopeTopicRequestID;
         netMonitorAttrerScopeField3.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField3.RequestId
 
-        userApi.emitter.emit EVENTS.NewUserCome, loginReqField1
+        userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField1
         userApi.emitter.on loginReqField1.message, (data) =>
             console.log loginReqField1.message
             console.log data
 
-            # userApi.emitter.emit EVENTS.NewUserCome, loginReqField2
+            # userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField2
             # userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField2
             #
-            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField1
-            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField2
-            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField1
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField2
+            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
 
             if data.hasOwnProperty 'pRspQrySysUserLogin'
-              userApi.emitter.emit 'Login Succeed',{}
+              
+              userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
+
               $(@login[0]).modal('hide') # 登录成功隐藏对话框
               if $('.checkbox')
                 window.userInfo = userinfo1
