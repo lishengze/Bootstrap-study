@@ -15,7 +15,7 @@ module.exports =
 class LoginView extends View
   @content: ->
     @div class: 'loginView', =>
-      @div class: 'modal fade', outlet: "login", onkeydown:'testKeyDown',id:"loginModal", =>
+      @div class: 'modal fade', outlet: "login", id:"loginModal", =>
         @div class: 'modal-dialog modal-sm', =>
           @div class: 'modal-content', =>
             @div class: 'modal-header', =>
@@ -64,8 +64,8 @@ class LoginView extends View
     console.log "loginView pid: " + process.pid
     # console.log 'window.ReqQryNetMonitorAttrScopeTopicRequestID: ' + window.ReqQryNetMonitorAttrScopeTopicRequestID
 
-  testKeyDown: ->
-    console.log 'Hello keydown'
+  # testKeyDown: ->
+  #   console.log 'Hello keydown'
 
   loginFunc: ->
         userID   = @inputText.val()
@@ -113,6 +113,7 @@ class LoginView extends View
         netMonitorAttrerScopeField3.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField3.RequestId
 
         userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField1
+
         userApi.emitter.on loginReqField1.message, (data) =>
             console.log loginReqField1.message
             console.log data
@@ -204,8 +205,6 @@ class LoginView extends View
       userApi.emitter.on EVENTS.RootSocketReconnectFailed, (data) ->
           console.log EVENTS.RootSocketReconnectFailed
           console.log data
-
-
 
       userApi.emitter.on EVENTS.RspQrySysUserLoginTopic, (data) ->
           console.log "login-view2: RspQrySysUserLoginTopic CallbackData"
