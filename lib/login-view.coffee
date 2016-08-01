@@ -112,6 +112,32 @@ class LoginView extends View
         netMonitorAttrerScopeField3.RequestId  = ++window.ReqQryNetMonitorAttrScopeTopicRequestID;
         netMonitorAttrerScopeField3.rspMessage = EVENTS.RspQryNetMonitorAttrScopeTopic + netMonitorAttrerScopeField3.RequestId
 
+        reqMonitorObjectTopicData = new userApiStruct.CShfeFtdcReqQryMonitorObjectField()
+        MonitorObjectTopicNumb    = 10;
+
+        ReqQryMonitorObjectTopicField = new Array(MonitorObjectTopicNumb)
+        for index in ReqQryMonitorObjectTopicField
+            ReqQryMonitorObjectTopicField[index] = {}
+            ReqQryMonitorObjectTopicField[index].reqObject = reqMonitorObjectTopicData
+            ReqQryMonitorObjectTopicField[index].RequestId = ++ window.ReqQryMonitorObjectTopicRequestID
+            ReqQryMonitorObjectTopicField[index].rspMessage =  EVENTS.RspQryMonitorObjectTopic + ReqQryMonitorObjectTopicField[index].RequestId
+
+            userApi.emitter.on ReqQryMonitorObjectTopicField[index].rspMessage, (data) =>
+                console.log "loginView pid: " + process.pid
+                #ReqQryMonitorObjectTopicField[index].rspMessage
+                #console.log data
+
+
+        # ReqQryMonitorObjectTopicField = {}
+        # ReqQryMonitorObjectTopicField.reqObject = reqMonitorObjectTopicData
+        # ReqQryMonitorObjectTopicField.RequestId = ++ window.ReqQryMonitorObjectTopicRequestID
+        # ReqQryMonitorObjectTopicField.rspMessage =  EVENTS.RspQryMonitorObjectTopic + ReqQryMonitorObjectTopicField.RequestId
+        #
+        # userApi.emitter.on ReqQryMonitorObjectTopicField.rspMessage, (data) =>
+        #     ReqQryMonitorObjectTopicField.rspMessage
+        #     # console.log data
+        #     console.log "loginView pid: " + process.pid
+
         userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField1
 
         userApi.emitter.on loginReqField1.message, (data) =>
@@ -120,14 +146,18 @@ class LoginView extends View
 
             # userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField2
             # userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField2
-            #
-            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField1
-            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField2
-            userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
+
+            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField1
+            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField2
+            # userApi.emitter.emit EVENTS.ReqQryNetMonitorAttrScopeTopic, netMonitorAttrerScopeField3
 
             if data.hasOwnProperty 'pRspQrySysUserLogin'
-
               userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
+
+              for index in ReqQryMonitorObjectTopicField
+                  userApi.emitter.emit EVENTS.ReqQryMonitorObjectTopic, ReqQryMonitorObjectTopicField[index]
+
+              #userApi.emitter.emit EVENTS.ReqQryMonitorObjectTopic, ReqQryMonitorObjectTopicField
 
               $(@login[0]).modal('hide') # 登录成功隐藏对话框
               if $('.checkbox')
