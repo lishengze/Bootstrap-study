@@ -123,7 +123,7 @@ class LoginView extends View
             ReqQryMonitorObjectTopicField[index].rspMessage =  EVENTS.RspQryMonitorObjectTopic + ReqQryMonitorObjectTopicField[index].RequestId
 
             userApi.emitter.on ReqQryMonitorObjectTopicField[index].rspMessage, (data) =>
-                console.log "loginView pid: " + process.pid
+                # console.log "loginView pid: " + process.pid
                 #ReqQryMonitorObjectTopicField[index].rspMessage
                 #console.log data
 
