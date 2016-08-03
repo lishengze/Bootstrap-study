@@ -154,8 +154,6 @@ class LoginView extends View
           _this.inputPassword.removeAttr("disabled")
           _this.selectPort.removeAttr("disabled")
           _this.loginBtn.removeAttr("disabled")
-          # $("#loginBtn").removeAttr("disabled")
-
 
       userApi.emitter.on EVENTS.RootSocketConnectError, (data) ->
           console.log EVENTS.RootSocketConnectError
