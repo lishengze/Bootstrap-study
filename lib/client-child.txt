@@ -1,0 +1,7 @@
+Hello Pid: 10464
+
+Environment Params: 
+0: C:\Users\li.xiankui\AppData\Local\monitor2\app-0.1.1\monitor2.exe
+1: C:\Users\li.xiankui\.monitor\packages\monitor2_login\lib\client-child.js
+2: Hello client-child!
+reqData.event: SocketIONewUserCome
