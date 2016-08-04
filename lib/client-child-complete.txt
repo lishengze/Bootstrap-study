@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Hello Pid: 4248
+=======
+Hello Pid: 14120
+>>>>>>> 127b5cb60a100447114344ee35b47a6c85a992f1
 
 Environment Params: 
 0: C:\Users\li.xiankui\AppData\Local\monitor2\app-0.1.1\monitor2.exe
@@ -7,6 +11,7 @@ Environment Params:
 reqData.event: SocketIONewUserCome
 Client: new user admin ready!
 Client: admin  connect completed!
+<<<<<<< HEAD
 reqData.event: ReqQryMonitorObjectTopic
 reqData.event: ReqQryNetMonitorAttrScopeTopic
 reqData.event: ReqQryMonitorObjectTopic
@@ -15,3 +20,9 @@ reqData.event: ReqQryMonitorObjectTopic
 reqData.event: ReqQryMonitorObjectTopic
 reqData.event: ReqQryMonitorObjectTopic
 reqData.event: ReqQryMonitorObjectTopic
+=======
+reqData.event: ReqQrySysUserLoginTopic
+
+reqField.message: RspQrySysUserLoginTopic CallbackData1
+reqField.RequestId: 1
+>>>>>>> 127b5cb60a100447114344ee35b47a6c85a992f1
