@@ -9,9 +9,9 @@ window.userApiStruct = SysUserApiStruct;
 window.EVENTS    = EVENTS;
 RequestIDFunc    = require './window-requestid.js'
 
-loginViewReqQrySysUserLoginTopicRequestID = 0
 failedLoginUserID = ""
 bLoginFailed = false
+LoginTimes = 1;
 
 module.exports =
 class LoginView extends View
@@ -91,29 +91,18 @@ class LoginView extends View
         userinfo.UserID    = userID
         userinfo.Password  = password
         userinfo.VersionID = "2.0.0.0"
-        loginViewReqQrySysUserLoginTopicRequestID = 1  #++window.ReqQrySysUserLoginTopicRequestID
         loginReqField           = {}
         loginReqField.reqObject = userinfo
-        loginReqField.RequestId = loginViewReqQrySysUserLoginTopicRequestID
-        loginReqField.message   = EVENTS.RspQrySysUserLoginTopic + loginViewReqQrySysUserLoginTopicRequestID
+        loginReqField.RequestId = ++window.ReqQrySysUserLoginTopicRequestID
+        loginReqField.message   = EVENTS.RspQrySysUserLoginTopic + loginReqField.RequestId
 
         if bLoginFailed==true && failedLoginUserID == userID
           userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField
         else
           userApi.emitter.emit EVENTS.SocketIONewUserCome, loginReqField
 
-        reqMonitorObjectTopicData = new userApiStruct.CShfeFtdcReqQryMonitorObjectField()
-        MonitorObjectTopicNumb    = 10;
-
-        ReqQryMonitorObjectTopicField = new Array(MonitorObjectTopicNumb)
-        for index in ReqQryMonitorObjectTopicField
-            ReqQryMonitorObjectTopicField[index] = {}
-            ReqQryMonitorObjectTopicField[index].reqObject = reqMonitorObjectTopicData
-            ReqQryMonitorObjectTopicField[index].RequestId = ++ window.ReqQryMonitorObjectTopicRequestID
-            ReqQryMonitorObjectTopicField[index].rspMessage =  EVENTS.RspQryMonitorObjectTopic + ReqQryMonitorObjectTopicField[index].RequestId
-
-            userApi.emitter.on ReqQryMonitorObjectTopicField[index].rspMessage, (data) =>
-                console.log "loginView pid: " + process.pid
+        # registerNewUser();
+        # reqQryMonitorObject()
 
         userApi.emitter.on loginReqField.message, (data) =>
             console.log loginReqField.message
@@ -122,8 +111,10 @@ class LoginView extends View
             if data.hasOwnProperty 'pRspQrySysUserLogin'
               userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
 
-              # for index in ReqQryMonitorObjectTopicField
-              #     userApi.emitter.emit EVENTS.ReqQryMonitorObjectTopic, ReqQryMonitorObjectTopicField[index]
+              # # 测试同一个客户端是否可以同时两次登录同一个用户, 结果是可以。
+              # console.log 'LoginTimes: ' + LoginTimes++
+              # if LoginTimes < 3
+              #   userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField
 
               $("#loginModal").modal('hide') # 登录成功隐藏对话框
               if $('.checkbox')
@@ -189,5 +180,50 @@ class LoginView extends View
       userApi.emitter.on EVENTS.RspQrySysUserLoginTopic, (data) ->
           console.log "login-view2: RspQrySysUserLoginTopic CallbackData"
           console.log data
-  show: ->
-    $(@login[0]).modal 'backdrop': 'static', keyboard: false, show: true
+
+  reqQryMonitorObject = ->
+    console.log 'reqQryMonitorObject!'
+    reqMonitorObjectTopicData = new userApiStruct.CShfeFtdcReqQryMonitorObjectField()
+    MonitorObjectTopicNumb    = 10;
+
+    ReqQryMonitorObjectTopicField = new Array(MonitorObjectTopicNumb)
+    for index in ReqQryMonitorObjectTopicField
+        ReqQryMonitorObjectTopicField[index] = {}
+        ReqQryMonitorObjectTopicField[index].reqObject  = reqMonitorObjectTopicData
+        ReqQryMonitorObjectTopicField[index].RequestId  = ++ window.ReqQryMonitorObjectTopicRequestID
+        ReqQryMonitorObjectTopicField[index].rspMessage =  EVENTS.RspQryMonitorObjectTopic + ReqQryMonitorObjectTopicField[index].RequestId
+
+        userApi.emitter.on ReqQryMonitorObjectTopicField[index].rspMessage, (data) ->
+            console.log "loginView pid: " + process.pid
+
+     userApi.emitter.on EVENTS.RspQyrUserLoginSucceed, (data) ->
+         for index in ReqQryMonitorObjectTopicField
+             userApi.emitter.emit EVENTS.ReqQryMonitorObjectTopic, ReqQryMonitorObjectTopicField[index]
+
+  registerNewUser = ->
+     console.log 'registerNewUser!'
+     SysUserRegisterInfo                 = new userApiStruct.CShfeFtdcReqQrySysUserRegisterField()
+     SysUserRegisterInfo.UserID          = "NewReUserID" + 0;
+     SysUserRegisterInfo.UserName        = "AdminName" + 0;
+     SysUserRegisterInfo.UserInfo        = "Man";
+     SysUserRegisterInfo.Password        = "1234567";
+     SysUserRegisterInfo.Privilege       = 63;
+     SysUserRegisterInfo.EMail           = "9328921@qq.com ";
+     SysUserRegisterInfo.EMailFlag       = 1;
+     SysUserRegisterInfo.HomePhone       = "15151803379 ";
+     SysUserRegisterInfo.HomePhoneFlag   = 1;
+     SysUserRegisterInfo.MobilePhone     = "051584106623 ";
+     SysUserRegisterInfo.MobilePhoneFlag = 1;
+
+     SysUserRegisterField           = {}
+     SysUserRegisterField.reqObject = SysUserRegisterInfo
+     SysUserRegisterField.RequestId = ++ReqQrySysUserRegisterTopicRequestID
+     SysUserRegisterField.message   = EVENTS.RspQrySysUserRegisterTopic + SysUserRegisterField.RequestId
+
+     userApi.emitter.on EVENTS.RspQyrUserLoginSucceed, (data) ->
+       console.log 'RegisterNewUser: ' + EVENTS.RspQyrUserLoginSucceed
+       userApi.emitter.emit EVENTS.ReqQrySysUserRegisterTopic, SysUserRegisterField
+
+     userApi.emitter.on SysUserRegisterField.message, (data) ->
+       console.log 'RegisterNewUser: '+ SysUserRegisterField.message
+       console.log data

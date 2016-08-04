@@ -1,0 +1,13 @@
+Hello Pid: 13060
+
+Environment Params: 
+0: C:\Users\li.shengze\AppData\Local\monitor2\app-0.1.3\monitor2.exe
+1: C:\Users\li.shengze\.monitor\packages\monitor2_login\lib\client-child.js
+2: Hello client-child!
+reqData.event: SocketIONewUserCome
+Client: new user admin ready!
+Client: admin  connect completed!
+reqData.event: ReqQrySysUserLoginTopic
+
+reqField.message: RspQrySysUserLoginTopic CallbackData1
+reqField.RequestId: 1
