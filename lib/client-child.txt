@@ -1,7 +1,9 @@
-Child Process Pid: 9924
+Child Process Pid: 6576
 ConnectServer Start! 
 ConnectServer End! 
 reqData.event: ConnectServer
 reqData.event: ReqQrySysUserLoginTopic
-reqData.event: ReqQrySysUserLoginTopic
-reqData.event: ReqQrySysUserLoginTopic
+reqData.event: ReqQryMonConfigInfo
+reqData.event: ReqQryMonConfigInfo
+reqData.event: ReqQryMonConfigInfo
+reqData.event: ReqQryMonitor2ObjectTopic
