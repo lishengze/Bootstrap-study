@@ -104,8 +104,8 @@ class LoginView extends View
           userApi.emitter.emit EVENTS.ReqQrySysUserLoginTopic, loginReqField
     
         userApi.emitter.on loginReqField.message, (data) =>
-            # console.log loginReqField.message
-            console.log data
+            console.log loginReqField.message
+            # console.log data
 
             if data.hasOwnProperty 'pRspQrySysUserLogin'
               userApi.emitter.emit EVENTS.RspQyrUserLoginSucceed,{}
